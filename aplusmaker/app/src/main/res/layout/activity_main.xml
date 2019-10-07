@@ -42,67 +42,148 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:orientation="horizontal">
-        </LinearLayout>
+            android:orientation="horizontal"></LinearLayout>
     </LinearLayout>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="5">
 
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal"
+                    android:layout_weight="1"
                     android:background="@drawable/bg_rect_light_blue_radius_18"
-                    android:layout_weight="1">
-                    <Button
-                        android:id="@+id/faq"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:onClick="onClickFAQButton"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:text="FAQ" />
+                    android:orientation="vertical">
 
-                    <Button
-                        android:id="@+id/study"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:onClick="onClickStudyButton"
-                        android:layout_gravity="center"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="학습하기" />
+                        android:orientation="horizontal">
 
-                    <Button
-                        android:id="@+id/cheat_button"
+                        <TextView
+                            android:layout_width="10dp"
+                            android:layout_height="match_parent" />
+
+                        <Button
+                            android:id="@+id/faq"
+                            android:layout_width="match_parent"
+                            android:layout_height="80dp"
+                            android:layout_gravity="bottom"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_circle_light_blue_ic_faq"
+                            android:onClick="onClickFAQButton"
+                            android:text="" />
+
+                        <TextView
+                            android:layout_width="10dp"
+                            android:layout_height="match_parent" />
+
+                        <Button
+                            android:id="@+id/study"
+                            android:layout_width="match_parent"
+                            android:layout_height="80dp"
+                            android:layout_gravity="bottom"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_circle_light_blue_ic_study"
+                            android:onClick="onClickStudyButton"
+                            android:text="" />
+
+                        <TextView
+                            android:layout_width="10dp"
+                            android:layout_height="match_parent" />
+
+                        <Button
+                            android:id="@+id/cheat_button"
+                            android:layout_width="match_parent"
+                            android:layout_height="80dp"
+                            android:layout_gravity="bottom"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_circle_light_blue_ic_flag_uncheck"
+                            android:onClick="onClickCheatButton"
+                            android:text="" />
+
+                        <TextView
+                            android:layout_width="10dp"
+                            android:layout_height="match_parent" />
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:onClick="onClickCheatButton"
-                        android:layout_gravity="center"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="오답노트" />
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="10dp"
+                            android:layout_height="wrap_content"
+                            android:text="" />
 
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_gravity="top"
+                            android:gravity="center"
+                            android:text="FAQ" />
+                        <TextView
+                            android:layout_width="10dp"
+                            android:layout_height="wrap_content"
+                            android:text="" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_gravity="top"
+                            android:gravity="center"
+                            android:text="학습하기" />
+                        <TextView
+                            android:layout_width="10dp"
+                            android:layout_height="wrap_content"
+                            android:text="" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_gravity="top"
+                            android:gravity="center"
+                            android:text="오답노트" />
+
+                        <TextView
+                            android:layout_width="10dp"
+                            android:layout_height="wrap_content"
+                            android:text="" />
+
+                    </LinearLayout>
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -111,6 +192,7 @@
                 </LinearLayout>
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
