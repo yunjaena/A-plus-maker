@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,24 +7,205 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/faq"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="onClickFAQButton"
-        android:text="FAQ" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/study"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="onClickStudyButton"
-        android:text="학습하기" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/bg_rect_deep_violet_gradient">
 
-    <Button
-        android:id="@+id/cheat_button"
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/bg_triangle_light_blue_gradient"
+            android:orientation="horizontal">
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"></LinearLayout>
+    </LinearLayout>
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="onClickCheatButton"
-        android:text="오답노트" />
-</LinearLayout>
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="A+Maker"
+                    android:layout_marginTop="10dp"
+                    android:textSize="22dp"
+                    android:textColor="@color/white"
+                    android:gravity="center_horizontal"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5">
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_rect_light_blue_radius_18"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="10dp"
+                            android:layout_height="match_parent" />
+
+                        <Button
+                            android:id="@+id/faq"
+                            android:layout_width="match_parent"
+                            android:layout_height="80dp"
+                            android:layout_gravity="bottom"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_circle_light_blue_ic_faq"
+                            android:onClick="onClickFAQButton"
+                            android:text="" />
+
+                        <TextView
+                            android:layout_width="10dp"
+                            android:layout_height="match_parent" />
+
+                        <Button
+                            android:id="@+id/study"
+                            android:layout_width="match_parent"
+                            android:layout_height="80dp"
+                            android:layout_gravity="bottom"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_circle_light_blue_ic_study"
+                            android:onClick="onClickStudyButton"
+                            android:text="" />
+
+                        <TextView
+                            android:layout_width="10dp"
+                            android:layout_height="match_parent" />
+
+                        <Button
+                            android:id="@+id/cheat_button"
+                            android:layout_width="match_parent"
+                            android:layout_height="80dp"
+                            android:layout_gravity="bottom"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_circle_light_blue_ic_flag_uncheck"
+                            android:onClick="onClickCheatButton"
+                            android:text="" />
+
+                        <TextView
+                            android:layout_width="10dp"
+                            android:layout_height="match_parent" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="10dp"
+                            android:layout_height="wrap_content"
+                            android:text="" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginTop="30dp"
+                            android:gravity="center"
+                            android:text="FAQ" />
+                        <TextView
+                            android:layout_width="10dp"
+                            android:layout_height="wrap_content"
+                            android:text="" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginTop="30dp"
+                            android:gravity="center"
+                            android:text="학습하기" />
+                        <TextView
+                            android:layout_width="10dp"
+                            android:layout_height="wrap_content"
+                            android:text="" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginTop="30dp"
+                            android:gravity="center"
+                            android:text="오답노트" />
+
+                        <TextView
+                            android:layout_width="10dp"
+                            android:layout_height="wrap_content"
+                            android:text="" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5">
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+            </LinearLayout>
+        </LinearLayout>
+    </FrameLayout>
+</FrameLayout>
