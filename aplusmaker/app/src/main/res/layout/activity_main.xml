@@ -148,7 +148,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:layout_gravity="top"
+                            android:layout_marginTop="30dp"
                             android:gravity="center"
                             android:text="FAQ" />
                         <TextView
@@ -160,7 +160,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:layout_gravity="top"
+                            android:layout_marginTop="30dp"
                             android:gravity="center"
                             android:text="학습하기" />
                         <TextView
@@ -172,7 +172,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:layout_gravity="top"
+                            android:layout_marginTop="30dp"
                             android:gravity="center"
                             android:text="오답노트" />
 
