@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="@color/light_blue"/>
+            <size
+                android:width="35dp"
+                android:height="50dp"/>
+        </shape>
+    </item>
+
+    <item android:drawable="@drawable/ic_flag_uncheck"
+        android:height="38dp"
+        android:width="32dp"
+        android:gravity="center"/>
+</layer-list>
