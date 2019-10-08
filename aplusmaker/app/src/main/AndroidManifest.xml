@@ -8,11 +8,13 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.HomeScreen">
+        android:theme="@style/AppTheme">
         <activity android:name=".CheatActivity"></activity>
         <activity android:name=".StudyActivity" />
         <activity android:name=".FaqActivity" />
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/Theme.HomeScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
