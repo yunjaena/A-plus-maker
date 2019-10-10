@@ -13,7 +13,9 @@
         <activity android:name=".StudyActivity" />
         <activity android:name=".FaqActivity" />
         <activity android:name=".AnswerActivity" />
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/Theme.HomeScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
