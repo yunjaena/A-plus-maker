@@ -4,12 +4,12 @@ public class Item {
     String question;
     int num;
 
-    public String getIndex() {
+    public String getQusetion() {
         return question;
     }
     public int getNum() { return num;}
-    public Item(String index, int num) {
-        this.question = index;
+    public Item(String question, int num) {
+        this.question = question;
         this.num = num;
     }
 }
