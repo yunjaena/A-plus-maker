@@ -12,6 +12,7 @@
         <activity android:name=".CheatActivity"></activity>
         <activity android:name=".StudyActivity" />
         <activity android:name=".FaqActivity" />
+        <activity android:name=".AnswerActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
