@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -29,6 +30,10 @@ public class StudyActivity extends AppCompatActivity {
     private String fileContent;
     private int selectMode;
     private boolean isModeSelected;
+    private Button modeButton;
+    private Button startButton;
+    private Button explorerButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +48,7 @@ public class StudyActivity extends AppCompatActivity {
             getSupportActionBar().setTitle(R.string.study_name);
         }
 
-        Button modeButton = (Button) findViewById(R.id.study_mode);
+        modeButton = (Button) findViewById(R.id.study_mode);
         modeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -51,7 +56,7 @@ public class StudyActivity extends AppCompatActivity {
             }
         });
 
-        Button startButton = (Button) findViewById(R.id.study_start);
+        startButton = (Button) findViewById(R.id.study_start);
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -59,7 +64,7 @@ public class StudyActivity extends AppCompatActivity {
             }
         });
 
-        Button explorerButton = (Button) findViewById(R.id.explorer);
+        explorerButton = (Button) findViewById(R.id.explorer);
         explorerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -151,6 +156,7 @@ public class StudyActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         Uri uri = null;
+        String fileName = "text file";
         isFileLoaded = false;
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == FILE_SELECT_CODE) {
@@ -165,6 +171,11 @@ public class StudyActivity extends AppCompatActivity {
                     return;
                 }
                 fileContent = readTextFile(uri);
+                if (uri.getPath() != null) {
+                    fileName = new File(uri.getPath()).getName().replace(".txt","");
+                    explorerButton.setText(fileName);
+                }
+
                 if (!fileContent.isEmpty())
                     isFileLoaded = true;
             }

@@ -104,8 +104,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="80dp"
                             android:layout_gravity="bottom"
+                            android:shadowColor="@null"
                             android:layout_weight="1"
-                            android:background="@drawable/bg_circle_light_blue_ic_faq"
+                            android:background="@drawable/list"
                             android:onClick="onClickFAQButton"
                             android:text="" />
 
@@ -118,8 +119,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="80dp"
                             android:layout_gravity="bottom"
+                            android:shadowColor="@null"
                             android:layout_weight="1"
-                            android:background="@drawable/bg_circle_light_blue_ic_study"
+                            android:background="@drawable/reading"
                             android:onClick="onClickStudyButton"
                             android:text="" />
 
@@ -133,7 +135,8 @@
                             android:layout_height="80dp"
                             android:layout_gravity="bottom"
                             android:layout_weight="1"
-                            android:background="@drawable/bg_circle_light_blue_ic_flag_uncheck"
+                            android:shadowColor="@null"
+                            android:background="@drawable/bookmark"
                             android:onClick="onClickCheatButton"
                             android:text="" />
 
