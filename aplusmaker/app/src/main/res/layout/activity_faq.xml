@@ -6,4 +6,89 @@
     android:layout_height="match_parent"
     tools:context=".FaqActivity">
 
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/btn_문의하기"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:width="130dp"
+            android:background="@drawable/faq_button_unchecked"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:onClick="onClick"
+            android:text="문의하기"
+            android:textSize="20dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_게임모드"
+            android:onClick="onClick"
+            android:background="@drawable/faq_button_unchecked"
+            android:width="130dp"
+            android:text="게임모드"
+            android:layout_marginTop="20dp"
+            android:textSize="20dp"
+            android:layout_toRightOf="@+id/btn_문의하기"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_오답노트"
+            android:onClick="onClick"
+            android:background="@drawable/faq_button_unchecked"
+            android:width="130dp"
+            android:text="오답노트"
+            android:layout_marginTop="20dp"
+            android:textSize="20dp"
+            android:layout_toRightOf="@+id/btn_게임모드"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_일반모드"
+            android:onClick="onClick"
+            android:background="@drawable/faq_button_unchecked"
+            android:width="130dp"
+            android:text="일반모드"
+            android:layout_marginLeft="10dp"
+            android:textSize="20dp"
+            android:layout_below="@+id/btn_문의하기"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_랜덤모드"
+            android:onClick="onClick"
+            android:background="@drawable/faq_button_unchecked"
+            android:width="130dp"
+            android:text="랜덤모드"
+            android:layout_below="@+id/btn_게임모드"
+            android:textSize="20dp"
+            android:layout_toRightOf="@+id/btn_일반모드"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_깜빡이모드"
+            android:onClick="onClick"
+            android:width="130dp"
+            android:text="깜빡이모드"
+            android:textSize="20dp"
+            android:layout_below="@+id/btn_오답노트"
+            android:layout_toRightOf="@+id/btn_랜덤모드"
+            android:background="@drawable/faq_button_unchecked"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="150dp" />
+    </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
