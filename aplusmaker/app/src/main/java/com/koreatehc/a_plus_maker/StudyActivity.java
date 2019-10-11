@@ -1,9 +1,12 @@
 package com.koreatehc.a_plus_maker;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -11,44 +14,52 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import android.os.Bundle;
-
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
 public class StudyActivity extends AppCompatActivity {
+    public static final String TAG = StudyActivity.class.getName();
 
     public static final int FILE_SELECT_CODE = 1;
-    TextView modeText;
+    private TextView modeText;
+    private boolean isFileLoaded;
+    private String fileContent;
+    private int selectMode;
+    private boolean isModeSelected;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE); // 액션바(타이틀바) 감추기
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_study);
 
-        modeText =findViewById(R.id.study_mode);
-
+        modeText = findViewById(R.id.study_mode);
+        isFileLoaded = false;
+        isModeSelected = false;
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(R.string.study_name);
         }
 
-        Button modeButton = (Button)findViewById(R.id.study_mode);
+        Button modeButton = (Button) findViewById(R.id.study_mode);
         modeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                show_mode();
+                showMode();
             }
         });
 
-        Button startButton = (Button)findViewById(R.id.study_start);
+        Button startButton = (Button) findViewById(R.id.study_start);
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                show_start();
+                showStart();
             }
         });
 
-        Button explorerButton = (Button)findViewById(R.id.explorer);
+        Button explorerButton = (Button) findViewById(R.id.explorer);
         explorerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,18 +84,29 @@ public class StudyActivity extends AppCompatActivity {
     }
 
 
-    void show_start(){
-        Toast.makeText(getApplicationContext(), "Button pressed!", Toast.LENGTH_SHORT).show();
+    void showStart() {
+        if (!isFileLoaded) {
+            Toast.makeText(this, "파일을 선택해 주세요", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (!isModeSelected) {
+            Toast.makeText(this, "모드 선택해 주세요", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Intent intent = new Intent(this, MemoryActivity.class);
+        intent.putExtra("MEMORY_MODE", selectMode);
+        intent.putExtra("FILE", fileContent);
+        startActivity(intent);
+
     }
 
-    void show_mode()
-    {
+    void showMode() {
         final List<String> ListItems = new ArrayList<>();
         ListItems.add("일반모드학습");
         ListItems.add("랜덤모드학습");
         ListItems.add("깜박이모드학습");
         ListItems.add("게임모드학습");
-        final CharSequence[] items =  ListItems.toArray(new String[ ListItems.size()]);
+        final CharSequence[] items = ListItems.toArray(new String[ListItems.size()]);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("학습 모드를 선택해주세요");
@@ -93,9 +115,59 @@ public class StudyActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int pos) {
                 String selectedText = items[pos].toString();
                 modeText.setText(selectedText);
+                selectMode = pos;
+                isModeSelected = true;
                 Toast.makeText(StudyActivity.this, selectedText, Toast.LENGTH_SHORT).show();
             }
         });
         builder.show();
+    }
+
+    private String readTextFile(Uri uri) {
+        BufferedReader reader = null;
+        StringBuilder builder = new StringBuilder();
+        try {
+            reader = new BufferedReader(new InputStreamReader(getContentResolver().openInputStream(uri)));
+            String line = "";
+
+            while ((line = reader.readLine()) != null) {
+                builder.append(line);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return builder.toString();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        Uri uri = null;
+        isFileLoaded = false;
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == FILE_SELECT_CODE) {
+            if (resultCode == RESULT_OK) {
+                if (data == null) {
+                    Toast.makeText(this, "파일을 못 읽어 왔습니다.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                uri = data.getData();
+                if (uri == null) {
+                    Toast.makeText(this, "파일을 못 읽어 왔습니다.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                fileContent = readTextFile(uri);
+                if (!fileContent.isEmpty())
+                    isFileLoaded = true;
+            }
+        }
     }
 }
