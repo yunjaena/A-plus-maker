@@ -11,5 +11,5 @@
     <color name="violet">#AFA4FF</color>
     <color name="light_blue">#9EB7FF</color>
     <color name="white">#FFFFFF</color>
-
+    <color name="light_gray">#33000000</color>
 </resources>

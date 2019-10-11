@@ -58,14 +58,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="A+Maker"
                     android:layout_marginTop="10dp"
-                    android:textSize="22dp"
+                    android:gravity="center_horizontal"
+                    android:text="A+Maker"
                     android:textColor="@color/white"
-                    android:gravity="center_horizontal"/>
+                    android:textSize="22dp" />
             </LinearLayout>
 
             <LinearLayout
