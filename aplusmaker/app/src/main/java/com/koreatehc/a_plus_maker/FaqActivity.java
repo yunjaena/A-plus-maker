@@ -71,37 +71,37 @@ public class FaqActivity extends AppCompatActivity {
     }
 
     public void onClick(View view) {
-        ClickButton.setBackgroundColor(getResources().getColor(R.color.violet));
+        ClickButton.setBackground(getResources().getDrawable(R.drawable.faq_button_unchecked));
         ClickButton = (Button) findViewById(view.getId());
 
        switch(view.getId()) {
             case R.id.btn_문의하기:
-                ClickButton.setBackgroundColor(getResources().getColor(R.color.light_blue));
+                ClickButton.setBackground(getResources().getDrawable(R.drawable.faq_button_checked));
                 mAdapter = new RecyclerViewAdapter(inquireFaq);
                 mRecyclerView.setAdapter(mAdapter);
                 break;
             case R.id.btn_게임모드:
-                ClickButton.setBackgroundColor(getResources().getColor(R.color.light_blue));
+                ClickButton.setBackground(getResources().getDrawable(R.drawable.faq_button_checked));
                 mAdapter = new RecyclerViewAdapter(gameModeFaq);
                 mRecyclerView.setAdapter(mAdapter);
                 break;
             case R.id.btn_오답노트:
-                ClickButton.setBackgroundColor(getResources().getColor(R.color.light_blue));
+                ClickButton.setBackground(getResources().getDrawable(R.drawable.faq_button_checked));
                 mAdapter = new RecyclerViewAdapter(wrongAnswerNoteFaq);
                 mRecyclerView.setAdapter(mAdapter);
                 break;
             case R.id.btn_일반모드:
-                ClickButton.setBackgroundColor(getResources().getColor(R.color.light_blue));
+                ClickButton.setBackground(getResources().getDrawable(R.drawable.faq_button_checked));
                 mAdapter = new RecyclerViewAdapter(generalModeFaq);
                 mRecyclerView.setAdapter(mAdapter);
                 break;
             case R.id.btn_랜덤모드:
-                ClickButton.setBackgroundColor(getResources().getColor(R.color.light_blue));
+                ClickButton.setBackground(getResources().getDrawable(R.drawable.faq_button_checked));
                 mAdapter = new RecyclerViewAdapter(randomModeFaq);
                 mRecyclerView.setAdapter(mAdapter);
            break;
             case R.id.btn_깜빡이모드:
-                ClickButton.setBackgroundColor(getResources().getColor(R.color.light_blue));
+                ClickButton.setBackground(getResources().getDrawable(R.drawable.faq_button_checked));
                 mAdapter = new RecyclerViewAdapter(gamBBackFaq);
                 mRecyclerView.setAdapter(mAdapter);
                 break;
