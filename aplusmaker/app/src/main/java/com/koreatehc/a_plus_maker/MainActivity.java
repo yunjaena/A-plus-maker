@@ -17,8 +17,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();
-
     }
+
     public void init(){
         faqButton = (Button)findViewById(R.id.faq);
         studyButton = (Button)findViewById(R.id.study);
