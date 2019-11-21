@@ -2,9 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.koreatehc.a_plus_maker">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+
     <uses-sdk
         android:maxSdkVersion="19"
-        android:targetSdkVersion="19"/>
+        android:targetSdkVersion="19" />
 
     <application
         android:allowBackup="true"
@@ -13,10 +18,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity android:name=".CheatActivity"></activity>
         <activity android:name=".FaqActivity" />
-        <activity android:name=".StudyActivity"/>
-        <activity android:name=".ExplorerActivity"/>
+        <activity android:name=".StudyActivity" />
+        <activity android:name=".ExplorerActivity" />
         <activity android:name=".AnswerActivity" />
         <activity
             android:name=".MainActivity"
@@ -30,6 +36,7 @@
         </activity>
         <activity android:name=".MemoryActivity" />
     </application>
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 </manifest>

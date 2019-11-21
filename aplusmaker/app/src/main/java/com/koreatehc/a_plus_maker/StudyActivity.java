@@ -19,11 +19,12 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class StudyActivity extends AppCompatActivity {
     public static final String TAG = StudyActivity.class.getName();
-
+    public static final String[] MODE = {"일반모드학습","랜덤모드학습","깜박이모드학습","TTS 모드"};
     public static final int FILE_SELECT_CODE = 1;
     private TextView modeText;
     private boolean isFileLoaded;
@@ -105,13 +106,9 @@ public class StudyActivity extends AppCompatActivity {
 
     }
 
-    void showMode() {
-        final List<String> ListItems = new ArrayList<>();
-        ListItems.add("일반모드학습");
-        ListItems.add("랜덤모드학습");
-        ListItems.add("깜박이모드학습");
-        ListItems.add("게임모드학습");
-        final CharSequence[] items = ListItems.toArray(new String[ListItems.size()]);
+    public void showMode() {
+        final List<String> listItems = new ArrayList<>(Arrays.asList(MODE));
+        final CharSequence[] items = listItems.toArray(new String[listItems.size()]);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("학습 모드를 선택해주세요");
@@ -137,6 +134,7 @@ public class StudyActivity extends AppCompatActivity {
 
             while ((line = reader.readLine()) != null) {
                 builder.append(line);
+                builder.append("\n");
             }
 
         } catch (IOException e) {
