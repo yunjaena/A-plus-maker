@@ -10,18 +10,49 @@ public class NormalStudyMode extends StudyModeFactory {
 
     @Override
     public String getContent(int currentLevel) {
-        String returnConetent = "";
+        String returnContent = "";
+        char[] OriginalData = getOriginalContent().toCharArray();
+        boolean isInBracket = false;
+
         switch (currentLevel) {
             case 1:
-                returnConetent = getOriginalContent();
+                returnContent = getOriginalContent().replace("{", "");
+                returnContent = returnContent.replace("}", "");
+                returnContent = returnContent.replace("[", "");
+                returnContent = returnContent.replace("]", "");
                 break;
             case 2:
-                returnConetent = getOriginalContent().replace("a","_");
+                for(int i = 0; i < OriginalData.length; i++) {
+                    if(OriginalData[i] != '{' && OriginalData[i] != '}') {
+                        if (OriginalData[i] == '[') {
+                            returnContent += "[";
+                            isInBracket = true;
+                        } else if (OriginalData[i] == ']') {
+                            returnContent += "]";
+                            isInBracket = false;
+                        } else if (isInBracket == true) {
+                            returnContent += " ";
+                        } else returnContent += Character.toString(OriginalData[i]);
+                    }
+                }
                 break;
             case 3:
-                returnConetent = getOriginalContent().replace("a","_").replace("e","_");
+                boolean isSlash = false;
+
+                for(int i = 0; i < OriginalData.length; i++) {
+                    if(OriginalData[i] != '[' && OriginalData[i] != ']') {
+                        if (OriginalData[i] == '{') {
+                            isInBracket = true;
+                        } else if (OriginalData[i] == '}') {
+                            isInBracket = false;
+                            returnContent += "\n- \n\n";
+                        } else if (isInBracket) {
+                            returnContent += Character.toString(OriginalData[i]);
+                        } else continue;
+                    }
+                }
                 break;
         }
-        return returnConetent;
+        return returnContent;
     }
 }
