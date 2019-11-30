@@ -1,6 +1,7 @@
 package com.koreatech.a_plus_maker;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.Gravity;
@@ -49,6 +50,7 @@ public class MemoryActivity extends ActivityBase implements TextToSpeech.OnInitL
     private boolean isBlinkModeStart;
     private boolean isFileSaved;
     private FileList fileList;
+    private Handler loadFileHandler;
 
 
     @Override
@@ -65,6 +67,7 @@ public class MemoryActivity extends ActivityBase implements TextToSpeech.OnInitL
         isTTSValid = false;
         isBlinkModeStart = false;
         isLettershow = false;
+        loadFileHandler = new Handler();
         fileList = SaveFileSharedPrefernce.getInstance().loadFileList();
         getData();
         initView();
@@ -202,12 +205,21 @@ public class MemoryActivity extends ActivityBase implements TextToSpeech.OnInitL
         levelSpinner.setAdapter(arrayAdapter);
         levelSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemSelected(AdapterView<?> parent, View view, final int position, long id) {
                 showProgressDialog();
-                String contentString = studyModeFactory.getContent(position + 1);
-                contentTextview.setText(contentString);
-                hideProgressDialog();
-
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        final String contentString = studyModeFactory.getContent(position + 1);
+                        loadFileHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                contentTextview.setText(contentString);
+                                hideProgressDialog();
+                            }
+                        });
+                    }
+                }).start();
             }
 
             @Override
