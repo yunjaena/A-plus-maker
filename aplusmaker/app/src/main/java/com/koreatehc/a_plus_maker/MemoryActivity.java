@@ -16,6 +16,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import com.koreatehc.a_plus_maker.studymode.NormalStudyMode;
+import com.koreatehc.a_plus_maker.studymode.RandomStudyMode;
 import com.koreatehc.a_plus_maker.studymode.StudyModeFactory;
 import com.koreatehc.a_plus_maker.studymode.TTSStudyMode;
 
@@ -97,7 +98,7 @@ public class MemoryActivity extends AppCompatActivity implements TextToSpeech.On
                 studyModeFactory = new NormalStudyMode(content);
                 break;
             case 1:
-                studyModeFactory = new NormalStudyMode(content);
+                studyModeFactory = new RandomStudyMode(content);
                 break;
             case 2:
                 studyModeFactory = new NormalStudyMode(content);
