@@ -62,6 +62,29 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/memory_blink_mode_linear_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="10dp"
+            android:orientation="horizontal">
+
+
+            <Button
+                android:id="@+id/memory_play_blink_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="재생" />
+
+            <Button
+                android:id="@+id/memory_stop_blink_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="정지" />
+
+        </LinearLayout>
+
 
         <TextView
             android:id="@+id/memory_content_textview"
