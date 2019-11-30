@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class CheatActivity extends AppCompatActivity implements CheatAdapter.RecyclerViewClicked {
+public class CheatActivity extends ActivityBase implements CheatAdapter.RecyclerViewClicked {
     private RecyclerView cheatNoteRecyclerview;
     private LinearLayoutManager linearLayoutManager;
     private CheatAdapter cheatAdapter;
@@ -55,6 +55,7 @@ public class CheatActivity extends AppCompatActivity implements CheatAdapter.Rec
 
     @Override
     public void onClickedRecyclerView(int position, int id) {
+        showProgressDialog();
         switch (id) {
             case R.id.cheat_sheet_delete_button:
                 Toast.makeText(getApplicationContext(), titleArrayList.get(position) + "삭제를 클릭 하였습니다.", Toast.LENGTH_SHORT).show();
@@ -70,6 +71,7 @@ public class CheatActivity extends AppCompatActivity implements CheatAdapter.Rec
                 startActivity(intent);
                 break;
         }
+        hideProgressDialog();
     }
 
     public void updateRecyclerview() {

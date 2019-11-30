@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 
-public class FaqActivity extends AppCompatActivity {
+public class FaqActivity extends ActivityBase {
     RecyclerView mRecyclerView;
     LinearLayoutManager mLayoutManager;
     RecyclerViewAdapter mAdapter;
@@ -71,6 +71,7 @@ public class FaqActivity extends AppCompatActivity {
     }
 
     public void onClick(View view) {
+        showProgressDialog();
         ClickButton.setBackground(getResources().getDrawable(R.drawable.faq_button_unchecked));
         ClickButton = (Button) findViewById(view.getId());
 
@@ -107,5 +108,6 @@ public class FaqActivity extends AppCompatActivity {
                 break;
 
         }
+        hideProgressDialog();
     }
 }

@@ -15,7 +15,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.koreatehc.a_plus_maker.studymode.BlinkStudyMode;
 import com.koreatehc.a_plus_maker.studymode.NormalStudyMode;
@@ -27,7 +26,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
 
-public class MemoryActivity extends AppCompatActivity implements TextToSpeech.OnInitListener {
+public class MemoryActivity extends ActivityBase implements TextToSpeech.OnInitListener {
     private LinearLayout ttsLinearLayout;
     private LinearLayout blinkLinearLayout;
     private Spinner levelSpinner;
@@ -204,8 +203,11 @@ public class MemoryActivity extends AppCompatActivity implements TextToSpeech.On
         levelSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                showProgressDialog();
                 String contentString = studyModeFactory.getContent(position + 1);
                 contentTextview.setText(contentString);
+                hideProgressDialog();
+
             }
 
             @Override
@@ -236,12 +238,35 @@ public class MemoryActivity extends AppCompatActivity implements TextToSpeech.On
 
 
     public void onReadTextButton() {
-        tts.speak(contentTextview.getText().toString(), TextToSpeech.QUEUE_FLUSH, null, null);
+        int dividerLimit = 3900;
+        String textForReading = contentTextview.getText().toString();
+        if (textForReading.length() >= dividerLimit) {
+            int textLength = textForReading.length();
+            ArrayList<String> texts = new ArrayList<String>();
+            int count = textLength / dividerLimit + ((textLength % dividerLimit == 0) ? 0 : 1);
+            int start = 0;
+            int end = textForReading.indexOf(" ", dividerLimit);
+            for (int i = 1; i <= count; i++) {
+                texts.add(textForReading.substring(start, end));
+                start = end;
+                if ((start + dividerLimit) < textLength) {
+                    end = textForReading.indexOf(" ", start + dividerLimit);
+                } else {
+                    end = textLength;
+                }
+            }
+            for (int i = 0; i < texts.size(); i++) {
+                tts.speak(texts.get(i), TextToSpeech.QUEUE_ADD, null, null);
+            }
+        } else {
+            tts.speak(textForReading, TextToSpeech.QUEUE_FLUSH, null, null);
+        }
     }
 
 
     @Override
     public void onInit(int status) {
+        showProgressDialog();
         if (status == TextToSpeech.SUCCESS) {
             int result = tts.setLanguage(Locale.KOREA);
             // tts.setPitch(5); // set pitch level
@@ -261,6 +286,7 @@ public class MemoryActivity extends AppCompatActivity implements TextToSpeech.On
             isTTSValid = false;
         }
         setPlayButtonColor();
+        hideProgressDialog();
     }
 
     public void setPlayButtonColor() {

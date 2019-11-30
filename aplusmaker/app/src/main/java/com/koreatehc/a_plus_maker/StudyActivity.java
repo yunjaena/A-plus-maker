@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class StudyActivity extends AppCompatActivity {
+public class StudyActivity extends ActivityBase {
     public static final String TAG = StudyActivity.class.getName();
     public static final String[] MODE = {"일반모드학습", "랜덤모드학습", "깜박이모드학습", "TTS 모드"};
     public static final int FILE_SELECT_CODE = 1;
@@ -166,6 +166,7 @@ public class StudyActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        showProgressDialog();
         Uri uri = null;
         String fileName = "text file";
         isFileLoaded = false;
@@ -191,5 +192,6 @@ public class StudyActivity extends AppCompatActivity {
                     isFileLoaded = true;
             }
         }
+        hideProgressDialog();
     }
 }

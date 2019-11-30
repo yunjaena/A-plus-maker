@@ -5,7 +5,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class AnswerActivity extends AppCompatActivity {
+public class AnswerActivity extends ActivityBase {
 
 TextView textView;
     @Override

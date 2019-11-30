@@ -17,7 +17,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class ExplorerActivity extends AppCompatActivity {
+public class ExplorerActivity extends ActivityBase {
 
     String mCurrent;
     String mRoot;
