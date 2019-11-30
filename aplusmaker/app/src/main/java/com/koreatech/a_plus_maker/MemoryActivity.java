@@ -196,7 +196,7 @@ public class MemoryActivity extends ActivityBase implements TextToSpeech.OnInitL
                     }
                 });
             }
-        });
+        }).start();
         
        
     }
