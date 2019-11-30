@@ -3,6 +3,7 @@ package com.koreatehc.a_plus_maker;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,28 +16,38 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.koreatehc.a_plus_maker.studymode.BlinkStudyMode;
 import com.koreatehc.a_plus_maker.studymode.NormalStudyMode;
 import com.koreatehc.a_plus_maker.studymode.RandomStudyMode;
 import com.koreatehc.a_plus_maker.studymode.StudyModeFactory;
 import com.koreatehc.a_plus_maker.studymode.TTSStudyMode;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Locale;
 
 public class MemoryActivity extends AppCompatActivity implements TextToSpeech.OnInitListener {
-    public static final int REQUEST_CODE_AUDIO_AND_WRITE_EXTERNAL_STORAGE = 1;
     private LinearLayout ttsLinearLayout;
+    private LinearLayout blinkLinearLayout;
     private Spinner levelSpinner;
     private ImageView saveImageview;
     private TextView contentTextview;
     private StudyModeFactory studyModeFactory;
     private boolean isSaved;
+    private String fileName;
     private String content;
     private int mode;
     private boolean isTTSValid;
     private Button ttsPlayButton;
     private Button ttsStopButton;
+    private Button blinkPlayButton;
+    private Button blinkStopButton;
     private TextToSpeech tts;
+    private int currentBlinkLetterIndex = 0;
+    private ArrayList<String> blinkLetters;
+    private boolean isLettershow;
+    private boolean isBlinkModeStart;
 
 
     @Override
@@ -48,8 +59,11 @@ public class MemoryActivity extends AppCompatActivity implements TextToSpeech.On
 
     public void init() {
         tts = new TextToSpeech(this, this);
+        blinkLetters = new ArrayList<>();
         isSaved = false;
         isTTSValid = false;
+        isBlinkModeStart = false;
+        isLettershow = false;
         getData();
         initView();
         setMode();
@@ -60,6 +74,7 @@ public class MemoryActivity extends AppCompatActivity implements TextToSpeech.On
         levelSpinner = findViewById(R.id.memory_level_spinner);
         saveImageview = findViewById(R.id.memory_save_imageview);
         contentTextview = findViewById(R.id.memory_content_textview);
+        blinkLinearLayout = findViewById(R.id.memory_blink_mode_linear_layout);
         saveImageview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,6 +83,8 @@ public class MemoryActivity extends AppCompatActivity implements TextToSpeech.On
         });
         ttsPlayButton = findViewById(R.id.memory_play_tts_button);
         ttsStopButton = findViewById(R.id.memory_stop_tts_button);
+        blinkStopButton = findViewById(R.id.memory_stop_blink_button);
+        blinkPlayButton = findViewById(R.id.memory_play_blink_button);
         ttsLinearLayout = findViewById(R.id.memory_tts_mode_linear_layout);
         ttsStopButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +93,7 @@ public class MemoryActivity extends AppCompatActivity implements TextToSpeech.On
             }
         });
         ttsLinearLayout.setVisibility(View.GONE);
+        blinkLinearLayout.setVisibility(View.GONE);
         ttsPlayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,6 +102,20 @@ public class MemoryActivity extends AppCompatActivity implements TextToSpeech.On
         });
         ttsPlayButton.setEnabled(false);
         ttsStopButton.setEnabled((false));
+
+        blinkPlayButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startBlinkMode();
+            }
+        });
+
+        blinkStopButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                stopBlinkMode();
+            }
+        });
         setPlayButtonColor();
     }
 
@@ -93,23 +125,41 @@ public class MemoryActivity extends AppCompatActivity implements TextToSpeech.On
 
 
     public void setMode() {
+        int modeNameResouceID = -1;
         switch (mode) {
             case 0:
                 studyModeFactory = new NormalStudyMode(content);
+                modeNameResouceID = R.string.normal_mode;
                 break;
             case 1:
                 studyModeFactory = new RandomStudyMode(content);
+                modeNameResouceID = R.string.random_mode;
                 break;
             case 2:
-                studyModeFactory = new NormalStudyMode(content);
+                studyModeFactory = new BlinkStudyMode(content);
+                blinkLetters.addAll(Arrays.asList(studyModeFactory.getContent(0).split("/")));
+                blinkLinearLayout.setVisibility(View.VISIBLE);
+                contentTextview.setGravity(Gravity.CENTER);
+                contentTextview.setText(R.string.please_play_start);
+                contentTextview.setTextSize(35);
+                modeNameResouceID = R.string.blink_mode;
                 break;
             case 3:
                 studyModeFactory = new TTSStudyMode(content);
                 ttsLinearLayout.setVisibility(View.VISIBLE);
+                contentTextview.setText(studyModeFactory.getContent(0));
+                modeNameResouceID = R.string.tts_mode;
                 break;
         }
+        setAppbarText(modeNameResouceID);
         setSpinner();
 
+    }
+
+    public void setAppbarText(int id) {
+        if (getSupportActionBar() != null && id != -1) {
+            getSupportActionBar().setTitle(id);
+        }
     }
 
     public void clickedSaveButton() {
@@ -129,8 +179,6 @@ public class MemoryActivity extends AppCompatActivity implements TextToSpeech.On
         int maxLevel = studyModeFactory.getStudyLevel();
         if (maxLevel == 0) {
             levelSpinner.setVisibility(View.GONE);
-            String contentString = studyModeFactory.getContent(0);
-            contentTextview.setText(contentString);
             return;
         }
         ArrayList<String> spinnerItem = new ArrayList<>();
@@ -161,6 +209,7 @@ public class MemoryActivity extends AppCompatActivity implements TextToSpeech.On
         }
         content = getIntent().getStringExtra("FILE");
         mode = getIntent().getIntExtra("MEMORY_MODE", 0);
+        fileName = getIntent().getStringExtra("FILE_NAME");
     }
 
     @Override
@@ -211,5 +260,49 @@ public class MemoryActivity extends AppCompatActivity implements TextToSpeech.On
         }
         ttsPlayButton.setEnabled(isTTSValid);
         ttsStopButton.setEnabled((isTTSValid));
+    }
+
+    public void startBlinkMode() {
+        isBlinkModeStart = true;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (isBlinkModeStart) {
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    contentTextview.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (!isLettershow) {
+                                contentTextview.setVisibility(View.INVISIBLE);
+                                contentTextview.setText(blinkLetters.get(currentBlinkLetterIndex));
+                                isLettershow = true;
+                            } else {
+                                contentTextview.setVisibility(View.VISIBLE);
+                                isLettershow = false;
+                                if (blinkLetters.size() <= currentBlinkLetterIndex + 1)
+                                    currentBlinkLetterIndex = 0;
+                                else
+                                    currentBlinkLetterIndex++;
+                            }
+                        }
+                    });
+                    Log.e("MemoryActivity", "run: " + currentBlinkLetterIndex);
+                }
+            }
+        }).start();
+    }
+
+    public void stopBlinkMode() {
+        isBlinkModeStart = false;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        isBlinkModeStart = false;
     }
 }

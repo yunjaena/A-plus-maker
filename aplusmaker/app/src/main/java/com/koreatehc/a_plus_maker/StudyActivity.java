@@ -102,6 +102,7 @@ public class StudyActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MemoryActivity.class);
         intent.putExtra("MEMORY_MODE", selectMode);
         intent.putExtra("FILE", fileContent);
+        intent.putExtra("FILE_NAME",explorerButton.getText().toString());
         startActivity(intent);
 
     }
