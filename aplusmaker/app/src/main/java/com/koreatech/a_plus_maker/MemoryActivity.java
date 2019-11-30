@@ -1,6 +1,7 @@
 package com.koreatech.a_plus_maker;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.Gravity;
@@ -49,6 +50,7 @@ public class MemoryActivity extends ActivityBase implements TextToSpeech.OnInitL
     private boolean isBlinkModeStart;
     private boolean isFileSaved;
     private FileList fileList;
+    private Handler updateUIHandler;
 
 
     @Override
@@ -65,6 +67,7 @@ public class MemoryActivity extends ActivityBase implements TextToSpeech.OnInitL
         isTTSValid = false;
         isBlinkModeStart = false;
         isLettershow = false;
+        updateUIHandler = new Handler();
         fileList = SaveFileSharedPrefernce.getInstance().loadFileList();
         getData();
         initView();
@@ -176,14 +179,26 @@ public class MemoryActivity extends ActivityBase implements TextToSpeech.OnInitL
     }
 
     public void clickedSaveButton() {
-        if (isFileSaved) {
-            fileList.deleteFile(fileName);
-        } else {
-            fileList.addFile(fileName, content);
-        }
-        SaveFileSharedPrefernce.getInstance().saveFileList(fileList);
-        fileList = SaveFileSharedPrefernce.getInstance().loadFileList();
-        checkFileIsSaved();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (isFileSaved) {
+                    fileList.deleteFile(fileName);
+                } else {
+                    fileList.addFile(fileName, content);
+                }
+                SaveFileSharedPrefernce.getInstance().saveFileList(fileList);
+                fileList = SaveFileSharedPrefernce.getInstance().loadFileList();
+                updateUIHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        checkFileIsSaved();
+                    }
+                });
+            }
+        }).start();
+        
+       
     }
 
     public void setSpinner() {
@@ -202,12 +217,21 @@ public class MemoryActivity extends ActivityBase implements TextToSpeech.OnInitL
         levelSpinner.setAdapter(arrayAdapter);
         levelSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemSelected(AdapterView<?> parent, View view, final int position, long id) {
                 showProgressDialog();
-                String contentString = studyModeFactory.getContent(position + 1);
-                contentTextview.setText(contentString);
-                hideProgressDialog();
-
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        final String contentString = studyModeFactory.getContent(position + 1);
+                        updateUIHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                contentTextview.setText(contentString);
+                                hideProgressDialog();
+                            }
+                        });
+                    }
+                }).start();
             }
 
             @Override
@@ -307,11 +331,6 @@ public class MemoryActivity extends ActivityBase implements TextToSpeech.OnInitL
             @Override
             public void run() {
                 while (isBlinkModeStart) {
-                    try {
-                        Thread.sleep(2000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
                     contentTextview.post(new Runnable() {
                         @Override
                         public void run() {
@@ -329,6 +348,11 @@ public class MemoryActivity extends ActivityBase implements TextToSpeech.OnInitL
                             }
                         }
                     });
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     Log.e("MemoryActivity", "run: " + currentBlinkLetterIndex);
                 }
             }

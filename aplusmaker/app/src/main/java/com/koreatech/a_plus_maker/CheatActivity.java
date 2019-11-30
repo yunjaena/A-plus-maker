@@ -2,6 +2,7 @@ package com.koreatech.a_plus_maker;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,6 +16,7 @@ public class CheatActivity extends ActivityBase implements CheatAdapter.Recycler
     private CheatAdapter cheatAdapter;
     private ArrayList<String> titleArrayList;
     private FileList fileList;
+    private Handler updateUIHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +26,6 @@ public class CheatActivity extends ActivityBase implements CheatAdapter.Recycler
     }
 
     public void init() {
-        fileList = SaveFileSharedPrefernce.getInstance().loadFileList();
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(R.string.cheat_sheet);
         }
@@ -35,8 +36,14 @@ public class CheatActivity extends ActivityBase implements CheatAdapter.Recycler
     }
 
     public void initVariable() {
+        updateUIHandler = new Handler();
         titleArrayList = new ArrayList<>();
-        titleArrayList.addAll(fileList.getTitleList());
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        updateRecyclerview();
     }
 
     public void initView() {
@@ -54,28 +61,63 @@ public class CheatActivity extends ActivityBase implements CheatAdapter.Recycler
 
     @Override
     public void onClickedRecyclerView(int position, int id) {
-        showProgressDialog();
         switch (id) {
             case R.id.cheat_sheet_delete_button:
                 Toast.makeText(getApplicationContext(), titleArrayList.get(position) + "삭제를 클릭 하였습니다.", Toast.LENGTH_SHORT).show();
-                fileList.deleteFile(position);
-                SaveFileSharedPrefernce.getInstance().saveFileList(fileList);
-                updateRecyclerview();
+                clickedDeleteButton(position);
                 break;
             case R.id.cheat_sheet_rewind_button:
                 Toast.makeText(getApplicationContext(), titleArrayList.get(position) + "복습을 클릭 하였습니다.", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(CheatActivity.this, StudyActivity.class);
-                intent.putExtra("TITLE", fileList.getTitle(position));
-                intent.putExtra("CONTENT", fileList.getContent(position));
-                startActivity(intent);
+                clickedRewindButton(position);
                 break;
         }
-        hideProgressDialog();
     }
 
     public void updateRecyclerview() {
-        titleArrayList.clear();
-        titleArrayList.addAll(fileList.getTitleList());
-        cheatAdapter.notifyDataSetChanged();
+        showProgressDialog();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                fileList = SaveFileSharedPrefernce.getInstance().loadFileList();
+                titleArrayList.clear();
+                titleArrayList.addAll(fileList.getTitleList());
+                updateUIHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        cheatAdapter.notifyDataSetChanged();
+                        hideProgressDialog();
+                    }
+                });
+            }
+        }).start();
+
+
+    }
+
+
+    public void clickedDeleteButton(final int position) {
+        showProgressDialog();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                fileList.deleteFile(position);
+                SaveFileSharedPrefernce.getInstance().saveFileList(fileList);
+                updateUIHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        hideProgressDialog();
+                        updateRecyclerview();
+                    }
+                });
+            }
+        }
+        ).start();
+    }
+
+    public void clickedRewindButton(final int position) {
+        Intent intent = new Intent(CheatActivity.this, StudyActivity.class);
+        intent.putExtra("TITLE", fileList.getTitle(position));
+        intent.putExtra("CONTENT", fileList.getContent(position));
+        startActivity(intent);
     }
 }
