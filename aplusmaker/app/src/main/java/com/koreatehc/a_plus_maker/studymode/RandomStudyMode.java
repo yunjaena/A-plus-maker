@@ -30,7 +30,7 @@ public class RandomStudyMode extends StudyModeFactory {
                     if (OriginalData[i] != '{' && OriginalData[i] != '}') {
                         if (OriginalData[i] == '[') {
                             returnContent += "[";
-                            if (ThreadLocalRandom.current().nextInt(100) >= MAX_SECOND_RANDOM_PERCENTAGE)
+                            if (ThreadLocalRandom.current().nextInt(100) <= MAX_SECOND_RANDOM_PERCENTAGE)
                                 isInBracket = true;
                         } else if (OriginalData[i] == ']') {
                             returnContent += "]";
@@ -46,7 +46,7 @@ public class RandomStudyMode extends StudyModeFactory {
                     if (OriginalData[i] != '{' && OriginalData[i] != '}') {
                         if (OriginalData[i] == '[') {
                             returnContent += "[";
-                            if (ThreadLocalRandom.current().nextInt(100) >= MAX_THIRD_RANDOM_PERCENTAGE)
+                            if (ThreadLocalRandom.current().nextInt(100) <= MAX_THIRD_RANDOM_PERCENTAGE)
                                 isInBracket = true;
                         } else if (OriginalData[i] == ']') {
                             returnContent += "]";
