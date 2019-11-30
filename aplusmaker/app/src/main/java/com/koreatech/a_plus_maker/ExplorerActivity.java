@@ -1,10 +1,6 @@
-package com.koreatehc.a_plus_maker;
+package com.koreatech.a_plus_maker;
 
-import androidx.appcompat.app.AppCompatActivity;
-import android.app.Activity;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;

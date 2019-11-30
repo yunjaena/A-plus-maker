@@ -1,4 +1,4 @@
-package com.koreatehc.a_plus_maker;
+package com.koreatech.a_plus_maker;
 
 public class FandQItem {
     private String question;

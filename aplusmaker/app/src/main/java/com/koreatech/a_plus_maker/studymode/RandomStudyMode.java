@@ -1,9 +1,13 @@
-package com.koreatehc.a_plus_maker.studymode;
+package com.koreatech.a_plus_maker.studymode;
 
-public class NormalStudyMode extends StudyModeFactory {
+import java.util.concurrent.ThreadLocalRandom;
+
+public class RandomStudyMode extends StudyModeFactory {
     public static final int NORMAL_MAX_LEVEL = 3;
+    public static final int MAX_SECOND_RANDOM_PERCENTAGE = 40;
+    public static final int MAX_THIRD_RANDOM_PERCENTAGE = 60;
 
-    public NormalStudyMode(String content) {
+    public RandomStudyMode(String content) {
         super(content, NORMAL_MAX_LEVEL);
     }
 
@@ -22,11 +26,12 @@ public class NormalStudyMode extends StudyModeFactory {
                 returnContent = returnContent.replace("]", "");
                 break;
             case 2:
-                for(int i = 0; i < OriginalData.length; i++) {
-                    if(OriginalData[i] != '{' && OriginalData[i] != '}') {
+                for (int i = 0; i < OriginalData.length; i++) {
+                    if (OriginalData[i] != '{' && OriginalData[i] != '}') {
                         if (OriginalData[i] == '[') {
                             returnContent += "[";
-                            isInBracket = true;
+                            if (ThreadLocalRandom.current().nextInt(100) <= MAX_SECOND_RANDOM_PERCENTAGE)
+                                isInBracket = true;
                         } else if (OriginalData[i] == ']') {
                             returnContent += "]";
                             isInBracket = false;
@@ -37,18 +42,18 @@ public class NormalStudyMode extends StudyModeFactory {
                 }
                 break;
             case 3:
-                boolean isSlash = false;
-
-                for(int i = 0; i < OriginalData.length; i++) {
-                    if(OriginalData[i] != '[' && OriginalData[i] != ']') {
-                        if (OriginalData[i] == '{') {
-                            isInBracket = true;
-                        } else if (OriginalData[i] == '}') {
+                for (int i = 0; i < OriginalData.length; i++) {
+                    if (OriginalData[i] != '{' && OriginalData[i] != '}') {
+                        if (OriginalData[i] == '[') {
+                            returnContent += "[";
+                            if (ThreadLocalRandom.current().nextInt(100) <= MAX_THIRD_RANDOM_PERCENTAGE)
+                                isInBracket = true;
+                        } else if (OriginalData[i] == ']') {
+                            returnContent += "]";
                             isInBracket = false;
-                            returnContent += "\n- \n\n";
-                        } else if (isInBracket) {
-                            returnContent += Character.toString(OriginalData[i]);
-                        } else continue;
+                        } else if (isInBracket == true) {
+                            returnContent += " ";
+                        } else returnContent += Character.toString(OriginalData[i]);
                     }
                 }
                 break;

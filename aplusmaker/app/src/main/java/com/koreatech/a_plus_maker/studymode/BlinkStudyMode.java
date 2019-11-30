@@ -1,9 +1,9 @@
-package com.koreatehc.a_plus_maker.studymode;
+package com.koreatech.a_plus_maker.studymode;
 
-public class TTSStudyMode extends StudyModeFactory {
+public class BlinkStudyMode extends StudyModeFactory {
     public static final int NORMAL_MAX_LEVEL = 0;
 
-    public TTSStudyMode(String content) {
+    public BlinkStudyMode(String content) {
         super(content, NORMAL_MAX_LEVEL);
     }
 

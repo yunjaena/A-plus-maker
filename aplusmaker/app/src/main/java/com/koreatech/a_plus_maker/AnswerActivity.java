@@ -1,9 +1,7 @@
-package com.koreatehc.a_plus_maker;
+package com.koreatech.a_plus_maker;
 
 import android.os.Bundle;
 import android.widget.TextView;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 public class AnswerActivity extends ActivityBase {
 

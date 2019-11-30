@@ -1,4 +1,4 @@
-package com.koreatehc.a_plus_maker;
+package com.koreatech.a_plus_maker;
 
 import android.content.Context;
 
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("com.koreatehc.a_plus_maker", appContext.getPackageName());
+        assertEquals("com.koreatech.a_plus_maker", appContext.getPackageName());
     }
 }

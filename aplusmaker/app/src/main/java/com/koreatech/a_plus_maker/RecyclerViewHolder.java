@@ -1,4 +1,4 @@
-package com.koreatehc.a_plus_maker;
+package com.koreatech.a_plus_maker;
 
 import android.view.View;
 import android.widget.TextView;

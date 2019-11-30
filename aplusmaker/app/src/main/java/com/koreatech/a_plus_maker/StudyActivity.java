@@ -1,7 +1,4 @@
-package com.koreatehc.a_plus_maker;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+package com.koreatech.a_plus_maker;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -13,6 +10,8 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
 
 import java.io.BufferedReader;
 import java.io.File;

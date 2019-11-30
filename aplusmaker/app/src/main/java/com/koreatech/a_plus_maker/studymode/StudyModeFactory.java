@@ -1,4 +1,4 @@
-package com.koreatehc.a_plus_maker.studymode;
+package com.koreatech.a_plus_maker.studymode;
 
 public abstract class StudyModeFactory {
     private int studyLevel;

@@ -1,13 +1,9 @@
-package com.koreatehc.a_plus_maker.studymode;
+package com.koreatech.a_plus_maker.studymode;
 
-import java.util.concurrent.ThreadLocalRandom;
-
-public class RandomStudyMode extends StudyModeFactory {
+public class NormalStudyMode extends StudyModeFactory {
     public static final int NORMAL_MAX_LEVEL = 3;
-    public static final int MAX_SECOND_RANDOM_PERCENTAGE = 40;
-    public static final int MAX_THIRD_RANDOM_PERCENTAGE = 60;
 
-    public RandomStudyMode(String content) {
+    public NormalStudyMode(String content) {
         super(content, NORMAL_MAX_LEVEL);
     }
 
@@ -26,12 +22,11 @@ public class RandomStudyMode extends StudyModeFactory {
                 returnContent = returnContent.replace("]", "");
                 break;
             case 2:
-                for (int i = 0; i < OriginalData.length; i++) {
-                    if (OriginalData[i] != '{' && OriginalData[i] != '}') {
+                for(int i = 0; i < OriginalData.length; i++) {
+                    if(OriginalData[i] != '{' && OriginalData[i] != '}') {
                         if (OriginalData[i] == '[') {
                             returnContent += "[";
-                            if (ThreadLocalRandom.current().nextInt(100) <= MAX_SECOND_RANDOM_PERCENTAGE)
-                                isInBracket = true;
+                            isInBracket = true;
                         } else if (OriginalData[i] == ']') {
                             returnContent += "]";
                             isInBracket = false;
@@ -42,18 +37,18 @@ public class RandomStudyMode extends StudyModeFactory {
                 }
                 break;
             case 3:
-                for (int i = 0; i < OriginalData.length; i++) {
-                    if (OriginalData[i] != '{' && OriginalData[i] != '}') {
-                        if (OriginalData[i] == '[') {
-                            returnContent += "[";
-                            if (ThreadLocalRandom.current().nextInt(100) <= MAX_THIRD_RANDOM_PERCENTAGE)
-                                isInBracket = true;
-                        } else if (OriginalData[i] == ']') {
-                            returnContent += "]";
+                boolean isSlash = false;
+
+                for(int i = 0; i < OriginalData.length; i++) {
+                    if(OriginalData[i] != '[' && OriginalData[i] != ']') {
+                        if (OriginalData[i] == '{') {
+                            isInBracket = true;
+                        } else if (OriginalData[i] == '}') {
                             isInBracket = false;
-                        } else if (isInBracket == true) {
-                            returnContent += " ";
-                        } else returnContent += Character.toString(OriginalData[i]);
+                            returnContent += "\n- \n\n";
+                        } else if (isInBracket) {
+                            returnContent += Character.toString(OriginalData[i]);
+                        } else continue;
                     }
                 }
                 break;

@@ -1,4 +1,4 @@
-package com.koreatehc.a_plus_maker;
+package com.koreatech.a_plus_maker;
 
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
@@ -16,11 +16,11 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
-import com.koreatehc.a_plus_maker.studymode.BlinkStudyMode;
-import com.koreatehc.a_plus_maker.studymode.NormalStudyMode;
-import com.koreatehc.a_plus_maker.studymode.RandomStudyMode;
-import com.koreatehc.a_plus_maker.studymode.StudyModeFactory;
-import com.koreatehc.a_plus_maker.studymode.TTSStudyMode;
+import com.koreatech.a_plus_maker.studymode.BlinkStudyMode;
+import com.koreatech.a_plus_maker.studymode.NormalStudyMode;
+import com.koreatech.a_plus_maker.studymode.RandomStudyMode;
+import com.koreatech.a_plus_maker.studymode.StudyModeFactory;
+import com.koreatech.a_plus_maker.studymode.TTSStudyMode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
