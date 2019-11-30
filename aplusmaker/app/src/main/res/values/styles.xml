@@ -9,6 +9,6 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="Theme.HomeScreen" parent="Theme.AppCompat.Light.NoActionBar" />
+    <style name="Theme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar" />
 
 </resources>
