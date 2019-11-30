@@ -24,7 +24,7 @@ import java.util.List;
 
 public class StudyActivity extends AppCompatActivity {
     public static final String TAG = StudyActivity.class.getName();
-    public static final String[] MODE = {"일반모드학습","랜덤모드학습","깜박이모드학습","TTS 모드"};
+    public static final String[] MODE = {"일반모드학습", "랜덤모드학습", "깜박이모드학습", "TTS 모드"};
     public static final int FILE_SELECT_CODE = 1;
     private TextView modeText;
     private boolean isFileLoaded;
@@ -72,6 +72,18 @@ public class StudyActivity extends AppCompatActivity {
                 showFileChooser();
             }
         });
+
+        if (getIntent() != null) {
+            if (getIntent().getStringExtra("TITLE") != null)
+                explorerButton.setText(getIntent().getStringExtra("TITLE"));
+
+            if (getIntent().getStringExtra("CONTENT") != null) {
+                fileContent = (getIntent().getStringExtra("CONTENT"));
+                isFileLoaded = true;
+            }
+
+
+        }
     }
 
     void showFileChooser() {
@@ -102,7 +114,7 @@ public class StudyActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MemoryActivity.class);
         intent.putExtra("MEMORY_MODE", selectMode);
         intent.putExtra("FILE", fileContent);
-        intent.putExtra("FILE_NAME",explorerButton.getText().toString());
+        intent.putExtra("FILE_NAME", explorerButton.getText().toString());
         startActivity(intent);
 
     }
@@ -171,7 +183,7 @@ public class StudyActivity extends AppCompatActivity {
                 }
                 fileContent = readTextFile(uri);
                 if (uri.getPath() != null) {
-                    fileName = new File(uri.getPath()).getName().replace(".txt","");
+                    fileName = new File(uri.getPath()).getName().replace(".txt", "");
                     explorerButton.setText(fileName);
                 }
 

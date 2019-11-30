@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
-    <file url="file://$PROJECT_DIR$/../../AndroidStudio/DeviceExplorer/Nexus_5X_API_27 [emulator-5554]/sdcard/Download/운영체제.txt" charset="UTF-8" />
-    <file url="PROJECT" charset="x-windows-949" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/koreatehc/a_plus_maker/BaseSharedPreferencesHelper.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/koreatehc/a_plus_maker/GsonHelper.java" charset="UTF-8" />
+    <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>
