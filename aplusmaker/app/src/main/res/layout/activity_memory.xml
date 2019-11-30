@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     android:orientation="vertical">
 
     <LinearLayout
@@ -75,7 +76,7 @@
                 android:id="@+id/memory_play_blink_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="재생" />
+                android:text="시작" />
 
             <Button
                 android:id="@+id/memory_stop_blink_button"
@@ -89,7 +90,8 @@
         <TextView
             android:id="@+id/memory_content_textview"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="25sp"
             android:layout_margin="10dp"
             tools:text="가나다라마" />
 
