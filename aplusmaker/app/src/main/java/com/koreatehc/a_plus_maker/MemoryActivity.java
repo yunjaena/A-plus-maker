@@ -48,6 +48,8 @@ public class MemoryActivity extends AppCompatActivity implements TextToSpeech.On
     private ArrayList<String> blinkLetters;
     private boolean isLettershow;
     private boolean isBlinkModeStart;
+    private boolean isFileSaved;
+    private FileList fileList;
 
 
     @Override
@@ -64,10 +66,22 @@ public class MemoryActivity extends AppCompatActivity implements TextToSpeech.On
         isTTSValid = false;
         isBlinkModeStart = false;
         isLettershow = false;
+        fileList = SaveFileSharedPrefernce.getInstance().loadFileList();
         getData();
         initView();
         setMode();
+        checkFileIsSaved();
 
+    }
+
+    public void checkFileIsSaved() {
+        if (fileList.isFileSaved(fileName)) {
+            saveImageview.setImageResource(R.drawable.ic_flag_checked);
+            isFileSaved = true;
+        } else {
+            saveImageview.setImageResource(R.drawable.ic_flag_uncheck);
+            isFileSaved = false;
+        }
     }
 
     private void initView() {
@@ -163,15 +177,14 @@ public class MemoryActivity extends AppCompatActivity implements TextToSpeech.On
     }
 
     public void clickedSaveButton() {
-        int imageId;
-        if (isSaved) {
-            isSaved = false;
-            imageId = R.drawable.ic_flag_uncheck;
+        if (isFileSaved) {
+            fileList.deleteFile(fileName);
         } else {
-            isSaved = true;
-            imageId = R.drawable.ic_flag_checked;
+            fileList.addFile(fileName, content);
         }
-        saveImageview.setBackground(getResources().getDrawable(imageId));
+        SaveFileSharedPrefernce.getInstance().saveFileList(fileList);
+        fileList = SaveFileSharedPrefernce.getInstance().loadFileList();
+        checkFileIsSaved();
     }
 
     public void setSpinner() {
