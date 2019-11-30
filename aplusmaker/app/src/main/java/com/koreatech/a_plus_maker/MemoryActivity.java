@@ -50,7 +50,7 @@ public class MemoryActivity extends ActivityBase implements TextToSpeech.OnInitL
     private boolean isBlinkModeStart;
     private boolean isFileSaved;
     private FileList fileList;
-    private Handler loadFileHandler;
+    private Handler updateUIHandler;
 
 
     @Override
@@ -67,7 +67,7 @@ public class MemoryActivity extends ActivityBase implements TextToSpeech.OnInitL
         isTTSValid = false;
         isBlinkModeStart = false;
         isLettershow = false;
-        loadFileHandler = new Handler();
+        updateUIHandler = new Handler();
         fileList = SaveFileSharedPrefernce.getInstance().loadFileList();
         getData();
         initView();
@@ -179,14 +179,26 @@ public class MemoryActivity extends ActivityBase implements TextToSpeech.OnInitL
     }
 
     public void clickedSaveButton() {
-        if (isFileSaved) {
-            fileList.deleteFile(fileName);
-        } else {
-            fileList.addFile(fileName, content);
-        }
-        SaveFileSharedPrefernce.getInstance().saveFileList(fileList);
-        fileList = SaveFileSharedPrefernce.getInstance().loadFileList();
-        checkFileIsSaved();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (isFileSaved) {
+                    fileList.deleteFile(fileName);
+                } else {
+                    fileList.addFile(fileName, content);
+                }
+                SaveFileSharedPrefernce.getInstance().saveFileList(fileList);
+                fileList = SaveFileSharedPrefernce.getInstance().loadFileList();
+                updateUIHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        checkFileIsSaved();
+                    }
+                });
+            }
+        });
+        
+       
     }
 
     public void setSpinner() {
@@ -211,7 +223,7 @@ public class MemoryActivity extends ActivityBase implements TextToSpeech.OnInitL
                     @Override
                     public void run() {
                         final String contentString = studyModeFactory.getContent(position + 1);
-                        loadFileHandler.post(new Runnable() {
+                        updateUIHandler.post(new Runnable() {
                             @Override
                             public void run() {
                                 contentTextview.setText(contentString);
@@ -319,11 +331,6 @@ public class MemoryActivity extends ActivityBase implements TextToSpeech.OnInitL
             @Override
             public void run() {
                 while (isBlinkModeStart) {
-                    try {
-                        Thread.sleep(2000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
                     contentTextview.post(new Runnable() {
                         @Override
                         public void run() {
@@ -341,6 +348,11 @@ public class MemoryActivity extends ActivityBase implements TextToSpeech.OnInitL
                             }
                         }
                     });
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     Log.e("MemoryActivity", "run: " + currentBlinkLetterIndex);
                 }
             }

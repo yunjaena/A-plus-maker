@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -33,6 +34,7 @@ public class StudyActivity extends ActivityBase {
     private Button modeButton;
     private Button startButton;
     private Button explorerButton;
+    private Handler fileLoadHandler;
 
 
     @Override
@@ -40,7 +42,7 @@ public class StudyActivity extends ActivityBase {
         requestWindowFeature(Window.FEATURE_NO_TITLE); // 액션바(타이틀바) 감추기
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_study);
-
+        fileLoadHandler = new Handler();
         modeText = findViewById(R.id.study_mode);
         isFileLoaded = false;
         isModeSelected = false;
@@ -165,32 +167,40 @@ public class StudyActivity extends ActivityBase {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        showProgressDialog();
-        Uri uri = null;
-        String fileName = "text file";
-        isFileLoaded = false;
         super.onActivityResult(requestCode, resultCode, data);
+        isFileLoaded = false;
         if (requestCode == FILE_SELECT_CODE) {
             if (resultCode == RESULT_OK) {
                 if (data == null) {
                     Toast.makeText(this, "파일을 못 읽어 왔습니다.", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                uri = data.getData();
+                final Uri uri = data.getData();
                 if (uri == null) {
                     Toast.makeText(this, "파일을 못 읽어 왔습니다.", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                fileContent = readTextFile(uri);
-                if (uri.getPath() != null) {
-                    fileName = new File(uri.getPath()).getName().replace(".txt", "");
-                    explorerButton.setText(fileName);
-                }
+                showProgressDialog();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        fileContent = readTextFile(uri);
+                        if (uri.getPath() != null) {
+                            final String fileName = new File(uri.getPath()).getName().replace(".txt", "");
+                            fileLoadHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    explorerButton.setText(fileName);
+                                    hideProgressDialog();
+                                }
+                            });
+                        }
+                        if (!fileContent.isEmpty())
+                            isFileLoaded = true;
+                    }
+                }).start();
 
-                if (!fileContent.isEmpty())
-                    isFileLoaded = true;
             }
         }
-        hideProgressDialog();
     }
 }
