@@ -4,22 +4,17 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="#3C3F41"/>
-
     <TextView
         android:id="@+id/question"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="30dp"
+        android:layout_margin="10dp"
         android:textSize="25dp"
 
         />
     <View
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="#3C3F41"/>
+        android:layout_height="0.5dp"
+        android:background="#a1a1a1"/>
 
 </LinearLayout>

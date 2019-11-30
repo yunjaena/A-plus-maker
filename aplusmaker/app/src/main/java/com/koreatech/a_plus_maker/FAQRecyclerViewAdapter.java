@@ -10,26 +10,29 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder> {
+public class FAQRecyclerViewAdapter extends RecyclerView.Adapter<FAQRecyclerViewHolder> {
     private ArrayList<FandQItem> mFandQItems;
 
     Context mContext;
-    public RecyclerViewAdapter(ArrayList itemList) {
+
+    public FAQRecyclerViewAdapter(ArrayList itemList) {
         mFandQItems = itemList;
     }
+
     // 필수 오버라이드 : View 생성, ViewHolder 호출
     @Override
-    public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item, parent, false);
+    public FAQRecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.faq_list_item, parent, false);
         mContext = parent.getContext();
 
-        RecyclerViewHolder holder = new RecyclerViewHolder(v);
+        FAQRecyclerViewHolder holder = new FAQRecyclerViewHolder(v);
 
         return holder;
     }
+
     // 필수 오버라이드 : 재활용되는 View 가 호출, Adapter 가 해당 position 에 해당하는 데이터를 결합
     @Override
-    public void onBindViewHolder(RecyclerViewHolder holder, final int position) {
+    public void onBindViewHolder(FAQRecyclerViewHolder holder, final int position) {
 
         // 해당 position 에 해당하는 데이터 결합
         holder.mquestion.setText(mFandQItems.get(position).getQuestion());
@@ -38,13 +41,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String answer ="1번선택";
+                String answer = "1번선택";
                 Intent intent = new Intent(mContext, AnswerActivity.class);
+                intent.putExtra("question", mFandQItems.get(position).getQuestion());
                 intent.putExtra("answer", mFandQItems.get(position).getAnswer());
                 mContext.startActivity(intent);
             }
         });
     }
+
     // 필수 오버라이드 : 데이터 갯수 반환
     @Override
     public int getItemCount() {

@@ -5,9 +5,9 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-public class RecyclerViewHolder extends RecyclerView.ViewHolder {
+public class FAQRecyclerViewHolder extends RecyclerView.ViewHolder {
     public TextView mquestion;
-    public RecyclerViewHolder(View itemView) {
+    public FAQRecyclerViewHolder(View itemView) {
         super(itemView);
         mquestion = (TextView) itemView.findViewById(R.id.question);
     }
