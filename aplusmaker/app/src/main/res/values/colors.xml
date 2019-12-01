@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <!--- custom color -->
+
+    <color name="deep_violet">#7966FF</color>
+    <color name="light_violet">#F1EEFC</color>
+    <color name="violet">#AFA4FF</color>
+    <color name="light_blue">#9EB7FF</color>
+    <color name="white">#FFFFFF</color>
+    <color name="light_gray">#33000000</color>
+    <color name="black">#000000</color>
+</resources>

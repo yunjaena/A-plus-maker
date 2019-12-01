@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/memory_level_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end">
+
+                <ImageView
+                    android:id="@+id/memory_save_imageview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/ic_flag_uncheck" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/memory_tts_mode_linear_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="10dp"
+            android:orientation="horizontal">
+
+
+            <Button
+                android:id="@+id/memory_play_tts_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="재생" />
+
+            <Button
+                android:id="@+id/memory_stop_tts_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="정지" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/memory_blink_mode_linear_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="10dp"
+            android:orientation="horizontal">
+
+
+            <Button
+                android:id="@+id/memory_play_blink_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="시작" />
+
+            <Button
+                android:id="@+id/memory_stop_blink_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="정지" />
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/memory_content_textview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="25sp"
+            android:layout_margin="10dp"
+            tools:text="가나다라마" />
+
+    </LinearLayout>
+
+</ScrollView>
