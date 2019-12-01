@@ -43,21 +43,25 @@ public class FaqActivity extends AppCompatActivity {
         inquireFaq.add(new FandQItem("Q. 문의그만", "문의그만 답변"));
         gameModeFaq.add(new FandQItem("Q. 게임모드도그만", "게임모드도그만 답변"));
         gameModeFaq.add(new FandQItem("Q. 게임모드ㄴㄴ", "게임모드ㄴㄴ 답변"));
-        wrongAnswerNoteFaq.add(new FandQItem("Q. 오답노트쓰지마","오답노트쓰지마 답변"));
-        wrongAnswerNoteFaq.add(new FandQItem("Q. 오답노트 nono","오답노트 nono 답변"));
+
+        wrongAnswerNoteFaq.add(new FandQItem("Q. 오답노트 등록방법?",
+                "A. 학습하기에서 학습을 할 때 복습하고 싶으면 우측 상단의 북마크를 눌러 해당 학습 파일이 오답노트에 등록한다."));
+        wrongAnswerNoteFaq.add(new FandQItem("Q. 오답노트 사용법?",
+                "A. 메인메뉴에서 오답노트 아이콘을 눌러 오답노트 화면으로 전환한 후, 리스트에서 복습하고 싶은 파일명 옆의 복습 버튼을 누르면 해당 학습파일이 바로 불러와진 학습하기 화면으로 전환된다."));
+
         generalModeFaq.add(new FandQItem("Q. 일반모드왜못해","일반모드왜못해 답변"));
         generalModeFaq.add(new FandQItem("Q. 일반모드면걍해","일반모드면 걍해 답변"));
-        randomModeFaq.add(new FandQItem("Q. 랜덤모드니까막해","랜덤모드니까막해 답변"));
-        randomModeFaq.add(new FandQItem("Q. 랜덤모드가어렵나","랜덤모드가어렵나 답변"));
-        gamBBackFaq.add(new FandQItem("Q. 깜빡이는어려울만해","깜빡이는어려울만해 답변"));
-        gamBBackFaq.add(new FandQItem("Q. 깜빡깜빡1","깜빡깜빡1 답변"));
-        gamBBackFaq.add(new FandQItem("Q. 깜빡깜빡2","깜빡깜빡2 답변"));
-        gamBBackFaq.add(new FandQItem("Q. 깜빡깜빡3","깜빡깜빡3 답변"));
-        gamBBackFaq.add(new FandQItem("Q. 깜빡깜빡4","깜빡깜빡4 답변"));
-        gamBBackFaq.add(new FandQItem("Q. 깜빡깜빡5","깜빡깜빡5 답변"));
-        gamBBackFaq.add(new FandQItem("Q. 깜빡깜빡6","깜빡깜빡6 답변"));
-        gamBBackFaq.add(new FandQItem("Q. 깜빡깜빡7","깜빡깜빡7 답변"));
-        gamBBackFaq.add(new FandQItem("Q. 깜빡깜빡8","깜빡깜빡8 답변"));
+
+        randomModeFaq.add(new FandQItem("Q. 랜덤모드가 뭐죠?",
+                "A. 일반학습모드와 같이 학습파일에서 빈 칸을 뚫어주는 학습모드로, 순차적이고 단계적으로 빈 칸을 뚫어주는 것이 아닌 확률적으로 정해진 부분을 뚫어준다."));
+        randomModeFaq.add(new FandQItem("Q. 랜덤모드에서 Level이란?",
+                "A. 화면에 보여지는 단계를 말하는 것으로 1단계는 모든 칸이 채워진 학습파일을 보여주고, 2단계는 정해진 부분의 40%, 3단계는 60%를 빈칸으로 뚫는다."));
+        gamBBackFaq.add(new FandQItem("Q. 깜빡이모드가 뭐죠?",
+                "A. 기존의 영단어 깜빡이학습장의 학습원리를 바탕으로 한 학습모드로, 학습하고 내용을 양식에 맞게 작성하고 학습을 시작하게 되면 학습 내용이 구분자로 나뉘어 단어와 뜻을 2초 간격으로 깜빡이며 보여준다."));
+        gamBBackFaq.add(new FandQItem("Q. 깜빡이모드 학습파일 양식","" +
+                "A. 깜빡이모드의 경우 단어들과 거기에 맞는 짧은 설명을 연속해서 보여주므로 단어와 설명 사이의 구분자는 '/' 만을 사용한다.\n" +
+                "ex) 폭포수 모델/순차적인 소프트웨어 개발 프로세스/has-a/다른 객체를 받아들여 그 객체의 기능을 사용하는 관계/..."));
+
 
 
         // LinearLayout으로 설정
