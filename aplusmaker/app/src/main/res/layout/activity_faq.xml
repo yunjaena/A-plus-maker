@@ -30,7 +30,7 @@
                 android:width="130dp"
                 android:background="@drawable/faq_button_unchecked"
                 android:onClick="onClick"
-                android:text="문의하기"
+                android:text="앱 사용"
                 android:textSize="20dp" />
 
             <Button
@@ -41,7 +41,7 @@
                 android:width="130dp"
                 android:background="@drawable/faq_button_unchecked"
                 android:onClick="onClick"
-                android:text="게임모드"
+                android:text="TTS모드"
                 android:textSize="20dp" />
 
             <Button
