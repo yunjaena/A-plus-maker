@@ -2,11 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.koreatech.a_plus_maker">
 
-    <uses-sdk
-        android:maxSdkVersion="29"
-        android:minSdkVersion="21"
-        android:targetSdkVersion="28" />
-
     <application
         android:name=".APlusMakerApplication"
         android:allowBackup="true"
