@@ -5,7 +5,7 @@
     <string name="study_name">학습하기</string>
     <string name="please_play_start">시작 버튼을 눌러주세요</string>
     <string name = "normal_mode">일반 모드</string>
-    <string name = "random_mode">일반 모드</string>
+    <string name = "random_mode">랜덤 모드</string>
     <string name = "tts_mode">tts 모드</string>
     <string name = "blink_mode">깜박이 모드</string>
 </resources>
