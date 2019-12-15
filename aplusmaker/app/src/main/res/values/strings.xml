@@ -8,4 +8,5 @@
     <string name = "random_mode">랜덤 모드</string>
     <string name = "tts_mode">tts 모드</string>
     <string name = "blink_mode">깜박이 모드</string>
+    <string name ="text_editor">텍스트 편집기</string>
 </resources>

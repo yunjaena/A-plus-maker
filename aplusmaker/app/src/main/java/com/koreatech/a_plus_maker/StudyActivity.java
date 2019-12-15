@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -88,16 +89,14 @@ public class StudyActivity extends ActivityBase {
     }
 
     void showFileChooser() {
-
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        //intent.setType("*/*");      //all files
-        intent.setType("text/*");   //XML file only
+        Intent intent;
+        intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        intent.setType("text/*");
         intent.addCategory(Intent.CATEGORY_OPENABLE);
 
         try {
             startActivityForResult(Intent.createChooser(intent, "Select a File to Upload"), FILE_SELECT_CODE);
         } catch (android.content.ActivityNotFoundException ex) {
-            // Potentially direct the user to the Market with a Dialog
             Toast.makeText(this, "Please install a File Manager.", Toast.LENGTH_SHORT).show();
         }
     }
