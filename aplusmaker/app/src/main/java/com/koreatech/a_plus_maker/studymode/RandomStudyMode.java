@@ -29,27 +29,38 @@ public class RandomStudyMode extends StudyModeFactory {
                 for (int i = 0; i < OriginalData.length; i++) {
                     if (OriginalData[i] != '{' && OriginalData[i] != '}') {
                         if (OriginalData[i] == '[') {
-                            returnContent += "[";
-                            if (ThreadLocalRandom.current().nextInt(100) <= MAX_SECOND_RANDOM_PERCENTAGE)
+                            //returnContent += "[";
+                            if (ThreadLocalRandom.current().nextInt(100) <= MAX_SECOND_RANDOM_PERCENTAGE) {
+                                returnContent += "[";
                                 isInBracket = true;
-                        } else if (OriginalData[i] == ']') {
-                            returnContent += "]";
+                            }
+                        } else if ( OriginalData[i] == ']') {
+                            if(isInBracket == true)
+                                returnContent += "]";
+
                             isInBracket = false;
                         } else if (isInBracket == true) {
                             returnContent += " ";
                         } else returnContent += Character.toString(OriginalData[i]);
                     }
+
                 }
+
                 break;
             case 3:
                 for (int i = 0; i < OriginalData.length; i++) {
                     if (OriginalData[i] != '{' && OriginalData[i] != '}') {
                         if (OriginalData[i] == '[') {
-                            returnContent += "[";
-                            if (ThreadLocalRandom.current().nextInt(100) <= MAX_THIRD_RANDOM_PERCENTAGE)
+                            //returnContent += "[";
+                            if (ThreadLocalRandom.current().nextInt(100) <= MAX_THIRD_RANDOM_PERCENTAGE) {
                                 isInBracket = true;
+                                returnContent += "[";
+                            }
                         } else if (OriginalData[i] == ']') {
-                            returnContent += "]";
+                            if(isInBracket == true)
+                                returnContent += "]";
+
+                            //returnContent += "]";
                             isInBracket = false;
                         } else if (isInBracket == true) {
                             returnContent += " ";

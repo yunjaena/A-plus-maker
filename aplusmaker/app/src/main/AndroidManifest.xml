@@ -2,10 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.koreatech.a_plus_maker">
 
-    <uses-sdk
-        android:maxSdkVersion="29"
-        android:minSdkVersion="21"
-        android:targetSdkVersion="28" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:name=".APlusMakerApplication"
@@ -35,5 +33,8 @@
         <activity
             android:name=".MainActivity"
             android:theme="@style/Theme.NoActionBar" />
+        <activity android:name=".TextEditorActivity"
+            android:windowSoftInputMode="adjustResize"
+            />
     </application>
 </manifest>
