@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -33,6 +34,7 @@ public class TextEditorActivity extends ActivityBase implements View.OnClickList
     private Button contentTextButton;
     private Button backSlashButton;
     private Boolean isPermitted;
+    private Handler handler;
 
 
     @Override
@@ -44,6 +46,7 @@ public class TextEditorActivity extends ActivityBase implements View.OnClickList
 
     public void init() {
         isPermitted = false;
+        handler = new Handler();
         textEditorEditText = findViewById(R.id.text_editor_text_input_edittext);
         titleTextButton = findViewById(R.id.text_editor_title_input_button);
         contentTextButton = findViewById(R.id.text_editor_content_button);
@@ -112,7 +115,7 @@ public class TextEditorActivity extends ActivityBase implements View.OnClickList
         ad.setMessage("제목을 입력해주세요");
         final FrameLayout container = new FrameLayout(TextEditorActivity.this);
         final EditText et = new EditText(TextEditorActivity.this);
-        FrameLayout.LayoutParams params = new  FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.leftMargin = 50;
         params.rightMargin = 50;
         et.setLayoutParams(params);
@@ -139,36 +142,55 @@ public class TextEditorActivity extends ActivityBase implements View.OnClickList
         ad.show();
     }
 
-    public void saveText(String title) {
+    public void saveText(final String title) {
         if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             Toast.makeText(getApplicationContext(), "저장할 외부저장소가 없습니다.", Toast.LENGTH_SHORT).show();
             return;
         }
-        try {
-            String text = textEditorEditText.getText().toString();
-            if (!text.trim().equals("")) {
-                File filePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsoluteFile();
-                File file = new File(filePath, title + ".txt");
-                if (!file.exists()) {
-                    file.createNewFile();
-                } else {
-                    Toast.makeText(getApplicationContext(), "파일이 이미 존재 합니다.", Toast.LENGTH_SHORT).show();
-                    return;
+        showProgressDialog();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    String text = textEditorEditText.getText().toString();
+                    if (!text.trim().equals("")) {
+                        File filePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsoluteFile();
+                        File file = new File(filePath, title + ".txt");
+                        if (!file.exists()) {
+                            file.createNewFile();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "파일이 이미 존재 합니다.", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        Log.e("TextEditorActivity", "saveText: " + filePath);
+                        FileWriter fileWritter = new FileWriter(file, false);
+                        BufferedWriter bufferWritter = new BufferedWriter(fileWritter);
+                        bufferWritter.write(text);
+                        bufferWritter.close();
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                hideProgressDialog();
+                                Toast.makeText(getApplicationContext(), "다운로드 폴더에 저장되었습니다.", Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
+                        });
+
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            hideProgressDialog();
+                            Toast.makeText(getApplicationContext(), "파일 저장에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
 
-                Log.e("TextEditorActivity", "saveText: " +filePath );
-                FileWriter fileWritter = new FileWriter(file, false);
-                BufferedWriter bufferWritter = new BufferedWriter(fileWritter);
-                bufferWritter.write(text);
-                bufferWritter.close();
-                Toast.makeText(getApplicationContext(), "다운로드 폴더에 저장되었습니다.", Toast.LENGTH_SHORT).show();
-                finish();
             }
-        } catch (IOException e) {
-
-            e.printStackTrace();
-            Toast.makeText(getApplicationContext(), "파일 저장에 실패했습니다.", Toast.LENGTH_SHORT).show();
-        }
+        }).start();
 
 
     }
